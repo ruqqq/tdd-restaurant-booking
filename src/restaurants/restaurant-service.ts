@@ -1,3 +1,4 @@
+import * as uuid from "uuid";
 import { Restaurant } from "./restaurant";
 import { restaurantRepository } from "./restaurant-repository";
 import { Table } from "./table";
@@ -11,7 +12,7 @@ class RestaurantService {
     }
 
     const table: Table = {
-      id: '1234',
+      id: uuid.v4(),
       restaurantId: restaurantId,
       createdBy: managerId,
       totalPax: totalPax,

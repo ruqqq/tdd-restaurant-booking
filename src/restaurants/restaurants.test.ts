@@ -1,6 +1,7 @@
 import { tableRepository } from "./table-repository";
 import { RestaurantEntity, restaurantRepository } from "./restaurant-repository";
 import { restaurantService } from "./restaurant-service";
+import * as uuid from "uuid";
 
 describe('restaurants', () => {
  describe('restaurant manager can add tables', () => {
@@ -18,6 +19,15 @@ describe('restaurants', () => {
       expect(table.totalPax).toBe(5);
       expect(table.restaurantId).toBe(restaurantEntity.id);
       expect(table.createdBy).toBe('manager1');
+   });
+
+   it('should generate uuid v4 for table id', async () => {
+      const restaurantEntity = await givenARestaurant();
+
+      const table = await restaurantService.addTable(restaurantEntity.id, "manager1", 5);
+
+      expect(uuid.validate(table.id)).toBeTruthy();
+      expect(uuid.version(table.id)).toBe(4);
    });
 
    it('should add table to restaurant', async () => {
