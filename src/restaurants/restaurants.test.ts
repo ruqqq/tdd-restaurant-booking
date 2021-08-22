@@ -29,6 +29,13 @@ describe('restaurants', () => {
       expect(restaurant.tables.length).toBe(1);
       expect(restaurant.tables[0]).toBe(table);
    });
+
+   it('should throw error if restaurant is not found', async () => {
+      expect(
+        restaurantService.addTable("invalidId", "manager1", 5)
+      ).rejects.toThrow("Invalid restaurant id");
+   });
+
   });
 });
 

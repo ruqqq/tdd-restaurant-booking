@@ -5,6 +5,11 @@ import { tableRepository } from "./table-repository";
 
 class RestaurantService {
   async addTable(restaurantId: string, managerId: string, totalPax: number): Promise<Table> {
+    const restaurant = await restaurantRepository.getById(restaurantId);
+    if (!restaurant) {
+      throw new Error("Invalid restaurant id");
+    }
+
     const table: Table = {
       id: '1234',
       restaurantId: restaurantId,
