@@ -1,9 +1,12 @@
+import { Restaurant } from "./restaurant";
+import { restaurantService } from "./restaurant-service";
+
 describe('restaurants', () => {
  describe('restaurant manager can add tables', () => {
-   it('should add table to restaurant successfully', () => {
-      const restaurant = givenARestaurant();
+   it('should add table to restaurant successfully', async () => {
+      const restaurant = await givenARestaurant();
 
-      const newTable = restaurantService.addTable(restaurant, "manager1", 5);
+      const newTable = await restaurantService.addTable(restaurant, "manager1", 5);
 
       expect(newTable.id).toBeDefined();
       expect(newTable.totalPax).toBe(5);
@@ -14,5 +17,7 @@ describe('restaurants', () => {
 });
 
 async function givenARestaurant(): Promise<Restaurant> {
-  return {};
+  return {
+    id: "restaurant1",
+  };
 }
