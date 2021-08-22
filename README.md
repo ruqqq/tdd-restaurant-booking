@@ -13,6 +13,8 @@ Due to covid-imposed restrictions, they have decided to build an online table bo
 
 ### As a restaurant manager, I want to be add tables to my restaurant so that they are available for customers to book
 
+### As a restaurant manager, I want to view a listing of all tables in my restaurant so that I can select the table to remove
+
 ### As a restaurant manager, I want to be remove tables from my restaurant so that they are no longer available for customers to book
 
 ### As a customer, I want to book a table slot so that I can dine-in with my family and friends
