@@ -4,11 +4,12 @@ import { restaurantService } from "./restaurant-service";
 import * as uuid from "uuid";
 
 describe('restaurants', () => {
+  beforeEach(async () => {
+    await restaurantRepository.deleteAll();
+    await tableRepository.deleteAll();
+  });
+
  describe('restaurant manager can add tables', () => {
-   beforeEach(async () => {
-     await restaurantRepository.deleteAll();
-     await tableRepository.deleteAll();
-   });
 
    it('should insert table to repository', async () => {
       const restaurantEntity = await givenARestaurant();
@@ -63,6 +64,27 @@ describe('restaurants', () => {
       ).rejects.toThrow("totalPax should not be < 0");
      });
    });
+  });
+
+  describe('restaurant manager get list of tables', () => {
+    it('should return zero tables', async () => {
+      const restaurantEntity = await givenARestaurant();
+
+      const restaurant = (await restaurantService.getRestaurant(restaurantEntity.id))!;
+
+      expect(restaurant.tables.length).toBe(0);
+    });
+
+    it('should return 3 tables', async () => {
+      const restaurantEntity = await givenARestaurant();
+      await restaurantService.addTable(restaurantEntity.id, "manager1", 5);
+      await restaurantService.addTable(restaurantEntity.id, "manager1", 1);
+      await restaurantService.addTable(restaurantEntity.id, "manager1", 3);
+
+      const restaurant = (await restaurantService.getRestaurant(restaurantEntity.id))!;
+
+      expect(restaurant.tables.length).toBe(3);
+    });
   });
 });
 
