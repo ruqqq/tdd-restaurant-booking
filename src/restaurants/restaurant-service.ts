@@ -11,6 +11,14 @@ class RestaurantService {
       throw new Error("Invalid restaurant id");
     }
 
+    if (totalPax === 0) {
+      throw new Error('totalPax should not be 0');
+    }
+
+    if (totalPax < 0) {
+      throw new Error('totalPax should not be < 0');
+    }
+
     const table: Table = {
       id: uuid.v4(),
       restaurantId: restaurantId,

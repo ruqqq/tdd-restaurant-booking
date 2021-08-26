@@ -46,6 +46,23 @@ describe('restaurants', () => {
       ).rejects.toThrow("Invalid restaurant id");
    });
 
+   describe('validations', () => {
+     it('totalPax should not be 0', async () => {
+      const restaurantEntity = await givenARestaurant();
+
+      expect(
+        restaurantService.addTable(restaurantEntity.id, "manager1", 0)
+      ).rejects.toThrow("totalPax should not be 0");
+     });
+
+     it('totalPax should not be less than 0', async () => {
+      const restaurantEntity = await givenARestaurant();
+
+      expect(
+        restaurantService.addTable(restaurantEntity.id, "manager1", -1)
+      ).rejects.toThrow("totalPax should not be < 0");
+     });
+   });
   });
 });
 
