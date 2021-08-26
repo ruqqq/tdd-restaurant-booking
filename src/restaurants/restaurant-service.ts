@@ -1,22 +1,17 @@
 import * as uuid from "uuid";
 import { Restaurant } from "./restaurant";
 import { restaurantRepository } from "./restaurant-repository";
+import { validateTableTotalPaxInput } from "./restaurant-validator";
 import { Table } from "./table";
 import { tableRepository } from "./table-repository";
 
 class RestaurantService {
   async addTable(restaurantId: string, managerId: string, totalPax: number): Promise<Table> {
+    validateTableTotalPaxInput(totalPax);
+
     const restaurant = await restaurantRepository.getById(restaurantId);
     if (!restaurant) {
       throw new Error("Invalid restaurant id");
-    }
-
-    if (totalPax === 0) {
-      throw new Error('totalPax should not be 0');
-    }
-
-    if (totalPax < 0) {
-      throw new Error('totalPax should not be < 0');
     }
 
     const table: Table = {
