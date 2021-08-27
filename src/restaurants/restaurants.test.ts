@@ -86,6 +86,26 @@ describe('restaurants', () => {
       expect(restaurant.tables.length).toBe(3);
     });
   });
+
+  describe('restaurant manager can delete tables', () => {
+    it('should delete table', async () => {
+      const restaurantEntity = await givenARestaurant();
+      const table = await restaurantService.addTable(restaurantEntity.id, "manager1", 5);
+
+      await expect(
+        restaurantService.deleteTable(table.id),
+      ).resolves.not.toThrow();
+    });
+
+    it('should throw error when table does not exists', async () => {
+      const restaurantEntity = await givenARestaurant();
+      const table = await restaurantService.addTable(restaurantEntity.id, "manager1", 5);
+
+      await expect(
+        restaurantService.deleteTable(table.id),
+      ).resolves.not.toThrow();
+    });
+  });
 });
 
 async function givenARestaurant(): Promise<RestaurantEntity> {

@@ -23,6 +23,10 @@ class RestaurantService {
     return await tableRepository.create(table);
   }
 
+  async deleteTable(tableId: string): Promise<void> {
+    await tableRepository.delete(tableId);
+  }
+
   async getRestaurant(id: string): Promise<Restaurant | undefined> {
     const tables = await tableRepository.getByRestaurantId(id);
     const restaurant = await restaurantRepository.getById(id);

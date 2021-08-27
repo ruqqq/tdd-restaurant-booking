@@ -25,6 +25,10 @@ class TableRepository {
   async deleteAll(): Promise<void> {
     this.tables = [];
   }
+
+  async delete(id: string): Promise<void> {
+    this.tables = this.tables.filter(r => r.id !== id);
+  }
 }
 
 export const tableRepository = new TableRepository();
