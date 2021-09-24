@@ -70,7 +70,9 @@ describe('restaurants', () => {
     it('should return zero tables', async () => {
       const restaurantEntity = await givenARestaurant();
 
-      const restaurant = (await restaurantService.getRestaurant(restaurantEntity.id))!;
+      const restaurant = (
+        await restaurantService.getRestaurant(restaurantEntity.id)
+      )!;
 
       expect(restaurant.tables.length).toBe(0);
     });
